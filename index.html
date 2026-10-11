@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Xtra — a streaming prototype for movies, series and creator videos." />
+    <meta name="theme-color" content="#e53950" />
+    <title>Xtra — Streaming Platform or sum shii idk</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <!-- Inline icon sprite: defined once, referenced with <use>. -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+        <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z" /></symbol>
+        <symbol id="i-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6z" /></symbol>
+        <symbol id="i-check" viewBox="0 0 24 24"><path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4z" /></symbol>
+        <symbol id="i-search" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z" /></symbol>
+    </svg>
+
+    <!-- ===================== NAVBAR ===================== -->
+    <header class="navbar">
+        <a class="brand" href="#main" aria-label="Xtra home">
+            <span class="brand-mark" aria-hidden="true">X</span>
+            <span class="brand-name">Xtra</span>
+        </a>
+
+        <form class="search" id="search-form" role="search">
+            <svg class="icon" aria-hidden="true"><use href="#i-search" /></svg>
+            <input
+                id="search-input"
+                class="search-input"
+                type="search"
+                placeholder="Search videos, creators, genres"
+                aria-label="Search videos"
+                autocomplete="off"
+            />
+            <button class="search-clear" id="search-clear" type="button" aria-label="Clear search" hidden>&times;</button>
+        </form>
+
+        <div class="top-actions">
+            <a class="nav-link" href="#library">Watch Later</a>
+            <div class="avatar" aria-hidden="true">A</div>
+        </div>
+    </header>
+
+    <main id="main">
+        <!-- ---------- Featured hero (Netflix-style) ---------- -->
+        <section class="hero" aria-labelledby="hero-title">
+            <span class="hero-tag">Featured</span>
+            <h1 class="hero-title" id="hero-title">JohnAyo joor</h1>
+            <p class="hero-desc" id="hero-desc"></p>
+            <div class="hero-actions">
+                <button class="btn btn-primary" id="hero-play" type="button">
+                    <svg class="icon" aria-hidden="true"><use href="#i-play" /></svg> Play
+                </button>
+            </div>
+        </section>
+
+        <!-- ---------- Category filters ---------- -->
+        <section class="toolbar" aria-label="Filter videos">
+            <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+            <p class="result-count" id="result-count" role="status" aria-live="polite"></p>
+        </section>
+
+        <!-- ---------- Your Library / Watch Later (Spotify-style) ---------- -->
+        <section class="section" id="library" aria-labelledby="library-title">
+            <div class="section-head">
+                <h2 class="section-title" id="library-title">Your Library</h2>
+                <span class="section-note">Watch Later</span>
+            </div>
+            <div class="videos" id="watch-later-grid"></div>
+            <p class="empty" id="library-empty" hidden>Nothing saved yet — tap the + on any video to add it to Watch Later.</p>
+        </section>
+
+        <!-- ---------- Browse all ---------- -->
+        <section class="section" id="browse" aria-labelledby="browse-title">
+            <div class="section-head">
+                <h2 class="section-title" id="browse-title">Browse All</h2>
+            </div>
+            <div class="videos" id="grid"></div>
+            <p class="empty" id="grid-empty" hidden>No videos match your search.</p>
+        </section>
+    </main>
+
+    <!-- ---------- Modal player ---------- -->
+    <dialog class="player" id="player" aria-labelledby="player-title">
+        <div class="player-frame">
+            <div class="player-head">
+                <div class="player-heading">
+                    <h2 class="player-title" id="player-title"></h2>
+                    <p class="player-meta" id="player-meta"></p>
+                </div>
+                <button class="player-close" id="player-close" type="button" aria-label="Close player">&times;</button>
+            </div>
+            <video class="player-video" id="player-video" controls playsinline preload="metadata"></video>
+            <p class="player-error" id="player-error" role="alert" hidden></p>
+        </div>
+    </dialog>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <script src="playback.js"></script>
+</body>
+</html>
